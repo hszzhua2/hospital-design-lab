@@ -1,0 +1,24 @@
+{
+  "computedAt": "2026-09-08",
+  "radiiMm": [
+    100,
+    150,
+    200,
+    250,
+    300,
+    350,
+    400,
+    450
+  ],
+  "pairRuns": 1352,
+  "pathChecks": 230130,
+  "stepChecks": 228778,
+  "baselineChecks": 169,
+  "maxBaselineErrorMeters": 0.0004833995939108604,
+  "symmetryChecks": 1352,
+  "monotonicChecks": 1183,
+  "unreachablePairs": 0,
+  "failures": [],
+  "algorithm": "Original embedded Navigator: eight-neighbour Dijkstra, no diagonal corner cuts; public clearance field; collinear compression only.",
+  "failureCaseChecked": true
+}

@@ -1,0 +1,485 @@
+{
+  "generatedAt": "2026-09-08T05:45:04.252Z",
+  "scope": "Approximate image-derived models, with inferred furniture explicitly tagged. No as-built certification or real procurement quantities.",
+  "projects": [
+    "dushu",
+    "nanjing",
+    "hongkong"
+  ],
+  "modelCount": 15,
+  "totals": {
+    "rooms": 1733,
+    "walls": 8420,
+    "furniture": 4374,
+    "meshParts": 42107
+  },
+  "oracle": {
+    "doorOpening": true,
+    "doorLintel": true,
+    "windowOpening": true,
+    "windowSill": true,
+    "solidWall": true
+  },
+  "models": [
+    {
+      "id": "dushu-B1",
+      "project": "dushu",
+      "label": "B1",
+      "levels": [
+        -1
+      ],
+      "image": "/projects/dushu/B1.png",
+      "glb": "/models/dushu-B1.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 500,
+        "rooms": 106,
+        "doors": 78,
+        "windows": 0,
+        "furniture": 18,
+        "inferred": 18,
+        "symbols": 0
+      },
+      "geometryInstances": 916,
+      "bytes": 550980,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F1",
+      "project": "dushu",
+      "label": "1F",
+      "levels": [
+        1
+      ],
+      "image": "/projects/dushu/F1.png",
+      "glb": "/models/dushu-F1.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 499,
+        "rooms": 109,
+        "doors": 84,
+        "windows": 0,
+        "furniture": 242,
+        "inferred": 115,
+        "symbols": 127
+      },
+      "geometryInstances": 2477,
+      "bytes": 1180116,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F2",
+      "project": "dushu",
+      "label": "2F",
+      "levels": [
+        2
+      ],
+      "image": "/projects/dushu/F2.png",
+      "glb": "/models/dushu-F2.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 602,
+        "rooms": 135,
+        "doors": 110,
+        "windows": 0,
+        "furniture": 340,
+        "inferred": 248,
+        "symbols": 92
+      },
+      "geometryInstances": 3216,
+      "bytes": 1535016,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F3",
+      "project": "dushu",
+      "label": "3F",
+      "levels": [
+        3
+      ],
+      "image": "/projects/dushu/F3.png",
+      "glb": "/models/dushu-F3.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 582,
+        "rooms": 127,
+        "doors": 102,
+        "windows": 0,
+        "furniture": 238,
+        "inferred": 168,
+        "symbols": 70
+      },
+      "geometryInstances": 2548,
+      "bytes": 1255004,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F4",
+      "project": "dushu",
+      "label": "4F",
+      "levels": [
+        4
+      ],
+      "image": "/projects/dushu/F4.png",
+      "glb": "/models/dushu-F4.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 471,
+        "rooms": 98,
+        "doors": 73,
+        "windows": 0,
+        "furniture": 92,
+        "inferred": 40,
+        "symbols": 52
+      },
+      "geometryInstances": 1523,
+      "bytes": 793956,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F5",
+      "project": "dushu",
+      "label": "5F",
+      "levels": [
+        5
+      ],
+      "image": "/projects/dushu/F5.png",
+      "glb": "/models/dushu-F5.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 334,
+        "rooms": 71,
+        "doors": 48,
+        "windows": 0,
+        "furniture": 46,
+        "inferred": 34,
+        "symbols": 12
+      },
+      "geometryInstances": 865,
+      "bytes": 478920,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F6",
+      "project": "dushu",
+      "label": "6F",
+      "levels": [
+        6
+      ],
+      "image": "/projects/dushu/F6.png",
+      "glb": "/models/dushu-F6.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 262,
+        "rooms": 58,
+        "doors": 40,
+        "windows": 0,
+        "furniture": 49,
+        "inferred": 0,
+        "symbols": 49
+      },
+      "geometryInstances": 891,
+      "bytes": 461840,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F7",
+      "project": "dushu",
+      "label": "7F",
+      "levels": [
+        7
+      ],
+      "image": "/projects/dushu/F7.png",
+      "glb": "/models/dushu-F7.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 254,
+        "rooms": 56,
+        "doors": 38,
+        "windows": 0,
+        "furniture": 58,
+        "inferred": 0,
+        "symbols": 58
+      },
+      "geometryInstances": 1003,
+      "bytes": 499296,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F8-11",
+      "project": "dushu",
+      "label": "8–11F",
+      "levels": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/projects/dushu/F8-11.png",
+      "glb": "/models/dushu-F8-11.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 258,
+        "rooms": 57,
+        "doors": 39,
+        "windows": 0,
+        "furniture": 79,
+        "inferred": 0,
+        "symbols": 79
+      },
+      "geometryInstances": 1260,
+      "bytes": 615608,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "dushu-F12",
+      "project": "dushu",
+      "label": "12F",
+      "levels": [
+        12
+      ],
+      "image": "/projects/dushu/F12.png",
+      "glb": "/models/dushu-F12.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 254,
+        "rooms": 56,
+        "doors": 38,
+        "windows": 0,
+        "furniture": 51,
+        "inferred": 0,
+        "symbols": 51
+      },
+      "geometryInstances": 919,
+      "bytes": 468600,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "nanjing-F1",
+      "project": "nanjing",
+      "label": "1F",
+      "levels": [
+        1
+      ],
+      "image": "/projects/nanjing/F1.jpg",
+      "glb": "/models/nanjing-F1.glb",
+      "scaleStatus": "scale-bar",
+      "counts": {
+        "walls": 559,
+        "rooms": 104,
+        "doors": 104,
+        "windows": 10,
+        "furniture": 820,
+        "inferred": 633,
+        "symbols": 187
+      },
+      "geometryInstances": 5820,
+      "bytes": 2634176,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "nanjing-F2",
+      "project": "nanjing",
+      "label": "2F",
+      "levels": [
+        2
+      ],
+      "image": "/projects/nanjing/F2.jpg",
+      "glb": "/models/nanjing-F2.glb",
+      "scaleStatus": "scale-bar",
+      "counts": {
+        "walls": 967,
+        "rooms": 186,
+        "doors": 185,
+        "windows": 93,
+        "furniture": 676,
+        "inferred": 17,
+        "symbols": 659
+      },
+      "geometryInstances": 5773,
+      "bytes": 2748604,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "nanjing-F3",
+      "project": "nanjing",
+      "label": "3F",
+      "levels": [
+        3
+      ],
+      "image": "/projects/nanjing/F3.jpg",
+      "glb": "/models/nanjing-F3.glb",
+      "scaleStatus": "scale-bar",
+      "counts": {
+        "walls": 1034,
+        "rooms": 192,
+        "doors": 192,
+        "windows": 89,
+        "furniture": 717,
+        "inferred": 15,
+        "symbols": 702
+      },
+      "geometryInstances": 6075,
+      "bytes": 2882512,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "nanjing-ward",
+      "project": "nanjing",
+      "label": "标准病区 F7–F14 参考",
+      "levels": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "image": "/projects/nanjing/ward.jpg",
+      "glb": "/models/nanjing-ward.glb",
+      "scaleStatus": "scale-bar",
+      "counts": {
+        "walls": 1406,
+        "rooms": 284,
+        "doors": 284,
+        "windows": 118,
+        "furniture": 669,
+        "inferred": 0,
+        "symbols": 669
+      },
+      "geometryInstances": 6351,
+      "bytes": 3139648,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    },
+    {
+      "id": "hongkong-ward",
+      "project": "hongkong",
+      "label": "7/F 历史病区",
+      "levels": [
+        7
+      ],
+      "image": "/projects/hongkong/ward.png",
+      "glb": "/models/hongkong-ward.glb",
+      "scaleStatus": "assumed",
+      "counts": {
+        "walls": 438,
+        "rooms": 94,
+        "doors": 89,
+        "windows": 43,
+        "furniture": 279,
+        "inferred": 279,
+        "symbols": 0
+      },
+      "geometryInstances": 2470,
+      "bytes": 1211992,
+      "checks": {
+        "sourceAndFloorCoverage": true,
+        "sourceImageIncluded": true,
+        "finiteGeometry": true,
+        "furnitureWithinSlabAndOutsideCourtyards": true,
+        "furnitureWithinAssignedRooms": true,
+        "glbHeaderAndScene": true
+      }
+    }
+  ]
+}

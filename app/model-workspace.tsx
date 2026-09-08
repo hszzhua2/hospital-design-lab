@@ -1,0 +1,44 @@
+'use client';
+import {useEffect,useRef,useState} from 'react';
+import {type Hospital} from '@/lib/projects';
+import {type PlanModel,modelCounts,furnitureNames,downloadData} from '@/lib/plan-model';
+import {type SceneOptions,type PickInfo} from '@/lib/plan-scene';
+import {PlanViewer,type ViewerHandle} from './plan-viewer';
+import {PlanOverlay} from './plan-overlay';
+import {Button} from '@/components/ui/button';
+import {Switch} from '@/components/ui/switch';
+import {Slider} from '@/components/ui/slider';
+import {Tabs,TabsList,TabsTrigger} from '@/components/ui/tabs';
+import {Select,SelectTrigger,SelectValue,SelectContent,SelectItem} from '@/components/ui/select';
+import {Box,Layers3,Download,Scan,Armchair,RotateCcw,RotateCw,Plus,Minus,ArrowUpRight,Info,LoaderCircle} from 'lucide-react';
+import './modeling.css';
+import {SourceImage} from './source-image';
+const defaults:SceneOptions={wallHeight:1.2,furniture:true,inferred:true,byEvidence:true,rooms:true};
+export function ModelWorkspace({h,onLevel}:{h:Hospital;onLevel:(n:number)=>void}){
+ const [models,setModels]=useState<PlanModel[]>([]),[selected,setSelected]=useState(''),[error,setError]=useState(''),[retry,setRetry]=useState(0),[view,setView]=useState('3d'),[options,setOptions]=useState(defaults),[picked,setPicked]=useState<PickInfo|null>(null),[exporting,setExporting]=useState(false),[exportError,setExportError]=useState('');
+ const viewer=useRef<ViewerHandle>(null);
+ useEffect(()=>{const controller=new AbortController();setError('');setModels([]);fetch(`/models/${h.id}.json`,{signal:controller.signal}).then(r=>{if(!r.ok)throw Error('未能加载本院模型数据');return r.json()}).then(raw=>{const data=raw as PlanModel[];if(!Array.isArray(data)||!data.length)throw Error('没有可读取的模型');setModels(data);setSelected((data.find(m=>m.levels.includes(h.ground))??data[0]).id)}).catch(e=>{if(e.name!=='AbortError')setError(e.message)});return()=>controller.abort();},[h.id,h.ground,retry]);
+ const model=models.find(m=>m.id===selected)??models[0],count=model?modelCounts(model):null;
+ useEffect(()=>{if(model)onLevel(model.levels[0])},[model,onLevel]);
+ const choose=(id:string)=>{setSelected(id);setPicked(null);setExportError('')};
+ const toggle=(key:'furniture'|'inferred'|'byEvidence'|'rooms',value:boolean)=>setOptions(o=>({...o,[key]:value}));
+ const exportGlb=async()=>{setExporting(true);setExportError('');try{await viewer.current?.exportGlb()}catch{setExportError('导出未完成，请保持三维视图打开后重试。')}finally{setExporting(false)}};
+ const missing=h.floors.filter(f=>!f.image).map(f=>f.label).join('、');
+ return <div className="furnished-workspace"><div className="furnished-intro"><div><span className="eyebrow">PLAN → SPATIAL MODEL</span><h2>逐张平面 · 墙体与家具</h2><p>按原图坐标描绘，青色家具参照图示，琥珀色为推定布置。立体造型与高度均为简化表达。</p></div><div className="model-coverage"><b>{models.length||'—'}</b><span>独立平面模型<small>{h.id==='dushu'?'8–11F 共用一张标准图':h.id==='nanjing'?'7–14F 共用一张标准图':'7/F 历史病区示意'}</small></span></div></div>
+ <div className="furnished-grid"><aside className="panel model-library"><div className="library-heading"><Layers3 size={17}/><b>平面模型目录</b></div>{models.map((m,i)=><Button key={m.id} variant="ghost" className={`model-card ${selected===m.id?'active':''}`} onClick={()=>choose(m.id)} aria-pressed={selected===m.id}><SourceImage src={m.image} alt="" loading="lazy"/><div><span>MODEL {String(i+1).padStart(2,'0')}</span><b>{m.label}</b><small>{modelCounts(m).rooms} 个空间描绘 · {modelCounts(m).furniture} 件家具</small></div><Box size={15}/></Button>)}{!models.length&&!error&&<p className="model-loading">正在读取平面模型…</p>}<div className="model-library-note"><Info size={15}/><p>{missing} 暂无可核验平面，保留资料缺口。已有标准图的适用楼层不等于各层现状家具相同。</p></div><a className="all-models-link" href="/models/hospital-models.zip" download>15 份模型打包下载<Download size={15}/></a><a className="all-models-link" href="/models/modeling-notes.md" download>建模范围与依据<Download size={15}/></a><a className="all-models-link" href={`/models/${h.id}.json`} download>本院全部模型数据<Download size={15}/></a></aside>
+ <section className="panel model-stage">{error?<div className="model-error-panel"><h3>模型加载未完成</h3><p>{error}</p><Button onClick={()=>setRetry(v=>v+1)}>重新加载</Button></div>:!model?<div className="model-error-panel"><LoaderCircle className="animate-spin"/><p>正在加载本院平面几何…</p></div>:<><div className="model-stage-header"><div><b>{model.label}</b><span>{model.scaleStatus==='scale-bar'?'图上比例尺近似校准':'尺度未核验 · 示意模型'}</span></div><Tabs value={view} onValueChange={v=>setView(String(v))}><TabsList><TabsTrigger value="3d"><Box size={15}/>三维剖切</TabsTrigger><TabsTrigger value="overlay"><Scan size={15}/>描图核对</TabsTrigger></TabsList></Tabs><a href={model.image} target="_blank" rel="noreferrer">原图<ArrowUpRight size={15}/></a></div>
+ <div className="model-layer-bar">{([['furniture','家具 / 设备'],['inferred','推定家具 / 门窗'],['byEvidence','家具依据着色'],['rooms','空间分区']] as const).map(([key,label])=><label key={key}><Switch size="sm" checked={options[key]} onCheckedChange={v=>toggle(key,v)} aria-label={label}/>{label}</label>)}<span className="evidence-dot"><i/>图示 <i className="inferred"/>推定</span></div>
+ {view==='3d'?<PlanViewer key={model.id} ref={viewer} model={model} options={options} onPick={setPicked}/>:<PlanOverlay key={model.id} model={model} options={options} onPick={setPicked}/>}
+ <div className="model-view-tools"><div><Button size="sm" variant="outline" disabled={view!=='3d'} onClick={()=>viewer.current?.view('iso')}><Box size={14}/>轴测</Button><Button size="sm" variant="outline" disabled={view!=='3d'} onClick={()=>viewer.current?.view('top')}>俯视</Button><Button size="icon" variant="ghost" disabled={view!=='3d'} aria-label="向左旋转" onClick={()=>viewer.current?.view('left')}><RotateCcw/></Button><Button size="icon" variant="ghost" disabled={view!=='3d'} aria-label="向右旋转" onClick={()=>viewer.current?.view('right')}><RotateCw/></Button><Button size="icon" variant="ghost" disabled={view!=='3d'} aria-label="放大三维模型" onClick={()=>viewer.current?.view('zoomIn')}><Plus/></Button><Button size="icon" variant="ghost" disabled={view!=='3d'} aria-label="缩小三维模型" onClick={()=>viewer.current?.view('zoomOut')}><Minus/></Button></div><label className="wall-height-control">墙体剖切 <b>{options.wallHeight.toFixed(1)} m</b><Slider aria-label="三维墙体显示高度，非实测层高" value={[options.wallHeight]} min={.3} max={3.2} step={.1} onValueChange={v=>setOptions(o=>({...o,wallHeight:Array.isArray(v)?v[0]:v}))}/><small>显示高度</small></label></div>
+ <div className="model-count-strip"><span><b>{count!.walls}</b>墙体段</span><span><b>{count!.rooms}</b>描绘空间</span><span><b>{count!.doors}</b>门位置</span><span><b>{count!.furniture}</b>家具 / 设备</span><span><b>{count!.inferred}</b>其中推定</span></div>
+ <div className="model-details"><section><h3>点选构件 · 核对依据</h3>{picked?<div className="picked-element"><b>{picked.label}</b><span className={picked.evidence==='inferred'?'inferred-tag':'traced-tag'}>{picked.evidence==='inferred'?'推定 / 待确认':picked.evidence==='symbol'?'参照图示符号':'参照原图描绘'}</span><code>{picked.id}</code><p>{picked.detail??'位置来自源图近似描绘；空间功能与净宽仍需项目资料核实。'}</p></div>:<p>点选模型内的床、桌椅、柜体或房间，查看构件来源。下方列表也可定位房间。</p>}<Select value={picked?.kind==='room'?picked.id:null} onValueChange={v=>{const r=model.rooms.find(r=>r.id===v);if(r){setPicked({kind:'room',id:r.id,label:r.label,evidence:r.evidence});viewer.current?.focus(r.id)}}}><SelectTrigger aria-label="选择模型房间"><SelectValue placeholder="选择房间定位"/></SelectTrigger><SelectContent>{model.rooms.map(r=><SelectItem key={r.id} value={r.id}>{r.label} · {r.id}</SelectItem>)}</SelectContent></Select></section><section><h3><Armchair size={17}/>模型家具清单</h3><div className="furniture-schedule">{Object.entries(furnitureNames).map(([type,label])=>{const entries=model.furniture.filter(f=>f.type===type);return entries.length>0&&<div key={type}><span>{label}</span><b>{entries.length}</b><small>{entries.filter(f=>f.evidence==='inferred').length} 推定</small></div>})}</div><p className="schedule-note">家具总数不含楼梯和电梯，清单另行列出。数字是模型对象数，不代表真实床位、采购量或设备台账。</p></section></div>
+ <div className="model-source-notes"><h3>本张图的建模边界</h3><p>{model.scaleNote}</p><ul>{model.notes.map((n,i)=><li key={i}>{n}</li>)}</ul>{h.sources.filter(s=>h.floors.filter(f=>model.levels.includes(f.level)).some(f=>f.sources.includes(s.id))).map(s=><a key={s.id} href={s.url} target="_blank" rel="noreferrer">{s.title}<ArrowUpRight size={13}/></a>)}</div>
+ <div className="model-export-bar"><a className="baseline-glb" href={`/models/${model.id}.glb`} download>完整模型 GLB<Download size={15}/></a><p>GLB 保存当前显示图层与剖切高度；JSON 保留原始坐标、对象类型与依据。</p><Button variant="outline" onClick={()=>downloadData(JSON.stringify(model,null,2),model.id+'.json','application/json')}>本层 JSON<Download size={15}/></Button><Button disabled={view!=='3d'||exporting} onClick={exportGlb}>{exporting?<LoaderCircle className="animate-spin" size={15}/>:<Download size={15}/>}导出当前 GLB</Button>{exportError&&<span role="status">{exportError}</span>}</div></>}
+ </section></div></div>;
+}
+
+
+
+
+
+

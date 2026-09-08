@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-08",
+  "hospitals": 3,
+  "demandLevels": [
+    0.6,
+    1,
+    1.4
+  ],
+  "seedCount": 12,
+  "pairedRuns": 108,
+  "modelRuns": 216,
+  "checkedRecords": 7044,
+  "checkedTrips": 4311,
+  "checks": [
+    "same requests A/B",
+    "all requests assigned unique completion",
+    "no overlapping trips per car",
+    "public batch <=12 same origin/destination",
+    "bed trip exclusive",
+    "B bank roles respected",
+    "deterministic generation",
+    "invalid options rejected",
+    "single-trip analytic oracle",
+    "all referenced floor/source/assets exist"
+  ]
+}
