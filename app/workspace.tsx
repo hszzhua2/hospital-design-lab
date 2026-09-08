@@ -1,4 +1,5 @@
 'use client';
+import {publicUrl} from '@/lib/public-url';
 import {useState,useEffect,useRef} from 'react';
 import {flushSync} from 'react-dom';
 import f1 from '@/lib/f1.json';
@@ -34,6 +35,6 @@ export default function Workspace(){
  <aside className="panel inspector"><div className="eyebrow">本组设计问题</div><h2>{c.title}</h2><p className="question">{c.question}</p><div className="insight-number"><span>A → B</span><b>−{fmt(result.percent)}<small>%</small></b><span>公共水平移动 · 条件性差值</span></div><div className="annotation"><b>B 的成立条件</b><p>{c.proposal}</p></div><div className="annotation"><b>包络参数的影响</b><p>当前 {radius} mm 相对 300 mm 基准，A 路程差值为 {fmt(result.a.distanceM!==null&&baseline.a.distanceM!==null?result.a.distanceM-baseline.a.distanceM:null,2)} m。此结果不代替轮椅转弯、门扇和陪护空间核查。</p></div><div className="annotation"><b>空间档案</b><Picker label="选择房间查看档案" value={roomId??''} onChange={setRoomId} items={f1.model.rooms.map(r=>({value:r.id,label:`${r.id} · ${r.name}`}))}/>{room?<div className="room-card"><strong>{room.name}<span>{room.id}</span></strong><div><b>{room.area_m2}</b> ㎡ <small>文件所列净面积</small></div><p>{zones[room.zone].name} · 原坐标 ({room.rect[0]}, {room.rect[1]})–({room.rect[2]}, {room.rect[3]}) mm</p><p>用途按源文件保留；带 * 的项目为暂拟。</p></div>:<p>点击平面中的房间，或从清单选择。</p>}</div></aside></div></TabsContent>
  <TabsContent value="evidence"><Evidence onChoose={next=>{choose(next);setTab('flow')}}/></TabsContent>
  <TabsContent value="data"><SourceData onRoom={r=>{setRoomId(r);setTab('flow')}}/></TabsContent>
- <TabsContent value="model"><div className="model-wrap"><div className="model-notice"><Info size={19}/><p>这里保留原文件的 3D、测量和图层功能。模型中的交互试改不回写本页基准分析；路线比较仍使用导入时的公共净空场。</p><a href="/source-f1.html" target="_blank" rel="noreferrer">独立窗口<ArrowUpRight size={16}/></a></div>{tab==='model'&&<iframe src="/source-f1.html" title="用户提供的原始 F1 离线三维模型" className="original-model" sandbox="allow-scripts allow-same-origin allow-downloads"/>}</div></TabsContent>
+ <TabsContent value="model"><div className="model-wrap"><div className="model-notice"><Info size={19}/><p>这里保留原文件的 3D、测量和图层功能。模型中的交互试改不回写本页基准分析；路线比较仍使用导入时的公共净空场。</p><a href={publicUrl('/source-f1.html')} target="_blank" rel="noreferrer">独立窗口<ArrowUpRight size={16}/></a></div>{tab==='model'&&<iframe src={publicUrl('/source-f1.html')} title="用户提供的原始 F1 离线三维模型" className="original-model" sandbox="allow-scripts allow-same-origin allow-downloads"/>}</div></TabsContent>
  </Tabs><footer className="lab-footer"><span>F1 / 综合医院方案论证</span><span>用户方案数据 · 路径情景假设 · 可复现计算</span><span>2026.09 · 首层研究范围</span></footer></main>
 }

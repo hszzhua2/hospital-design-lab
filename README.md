@@ -4,6 +4,8 @@
 
 软件采用 [MIT License](LICENSE)。第三方图纸、依赖和案例资料的权利范围见 [第三方声明](THIRD_PARTY_NOTICES.md)。
 
+**在线体验：[GitHub Pages 演示](https://hszzhua2.github.io/hospital-design-lab/)** · [F1 模型与路径分析](https://hszzhua2.github.io/hospital-design-lab/f1/)
+
 ## 功能
 
 - **15张独立平面模型**：独墅湖一期10张、南京鼓楼南扩4张、香港中大医院历史病区1张。标准图保留对应楼层范围。
@@ -30,6 +32,19 @@ pnpm start
 ```
 
 `build` 使用 Vinext / Cloudflare Workers 构建；`start` 在本机运行构建产物。仓库不包含原托管站点的项目标识或发布凭据。
+
+## GitHub Pages 部署
+
+仓库的 `main` 分支更新后，GitHub Actions 自动执行类型检查、构建并部署到 GitHub Pages。首页与 `f1/` 都有独立静态入口，直接访问或刷新均可使用。三维模型和分析在浏览器中运行，无需后端服务。
+
+```sh
+pnpm build:pages
+pnpm preview:pages
+```
+
+构建产物位于 `dist-pages/`，默认网址前缀为 `/hospital-design-lab/`。Actions 按仓库名自动设置前缀，也可用环境变量 `PAGES_BASE_PATH` 指定（例如自定义域名使用 `/`）。构建需要 Git，仅打包仓库跟踪的 `public/` 资产；本地补入但未纳入 Git 的第三方原图不会随页面发布。
+
+Fork 后在仓库 **Settings → Pages → Source** 选择 **GitHub Actions**，再从 Actions 手动运行 **Deploy GitHub Pages**。
 
 ## 原图为什么没有包含在仓库里
 
