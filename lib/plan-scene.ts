@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import {type PlanModel,type Point,modelBounds,roomColors,furnitureNames} from './plan-model.ts';
+import {type PlanModel,type Point,modelBounds,roomColors,furnitureNames,isCirculation,furnishingDetail} from './plan-model.ts';
 
-export type SceneOptions={wallHeight:number;furniture:boolean;inferred:boolean;byEvidence:boolean;rooms:boolean};
-export type PickInfo={kind:'room'|'furniture'|'wall'|'opening';id:string;label:string;evidence:string;detail?:string;furnitureType?:string;roomId?:string};
+export type SceneOptions={wallHeight:number;furniture:boolean;circulation?:boolean;inferred:boolean;byEvidence:boolean;rooms:boolean};
+export type PickInfo={kind:'room'|'furniture'|'circulation'|'wall'|'opening';id:string;label:string;evidence:string;detail?:string;furnitureType?:string;roomId?:string};
 type Part={matrix:THREE.Matrix4;info:PickInfo};
 export function buildPlanScene(model:PlanModel,opt:SceneOptions){
  const root=new THREE.Group();root.name=model.id;root.userData={sourceImage:model.image,scaleStatus:model.scaleStatus,scaleNote:model.scaleNote,notes:model.notes,displayWallHeight:opt.wallHeight,scope:'Image-traced approximate study model. Heights and inferred furniture are not surveyed facts.'};
@@ -31,9 +31,9 @@ export function buildPlanScene(model:PlanModel,opt:SceneOptions){
   if(o.kind==='window'){const h=Math.max(0,Math.min(2.15,opt.wallHeight)-.88);if(h>0)box('openings','#7caebc',(x+ex)/2,.88+h/2,(z+ez)/2,len,h,.04,angle,info)}
   else {box('openings',o.evidence==='inferred'&&opt.byEvidence?'#c99755':'#6299a8',(x+ex)/2,.025,(z+ez)/2,len,.05,.19,angle,info);}
  }
- if(opt.furniture)for(const f of model.furniture){if(!opt.inferred&&f.evidence==='inferred')continue;const [x,z]=xy([f.x,f.y]);let w=f.w*s,d=f.d*s,a=f.rotation*Math.PI/180;if(w>d&&["bed","exam","operating","scanner","stair","toilet"].includes(f.type)){[w,d]=[d,w];a+=Math.PI/2}const accent=opt.byEvidence?(f.evidence==='symbol'?'#2a8897':'#c2904e'):'#4f95a3',light='#f7f7f2',frame='#99a8b0',dark='#4e626e';
-  const info:PickInfo={kind:'furniture',id:f.id,label:furnitureNames[f.type]??f.type,evidence:f.evidence,furnitureType:f.type,roomId:f.roomId,detail:f.evidence==='symbol'?'位置 / 类型参照可辨图上符号；立体造型与高度为简化表达。':'推定布置，用于空间讨论；不代表医院真实家具、床位或设备配置。'};
-  const part=(dx:number,dz:number,width:number,depth:number,h:number,y:number,color:string)=>box('furniture',color,x+dx*Math.cos(a)-dz*Math.sin(a),y,z+dx*Math.sin(a)+dz*Math.cos(a),Math.min(width,Math.max(0,w-2*Math.abs(dx))),h,Math.min(depth,Math.max(0,d-2*Math.abs(dz))),-a,info);
+ for(const f of model.furniture){const circulation=isCirculation(f.type);if(circulation?opt.circulation===false:!opt.furniture)continue;if(!opt.inferred&&f.evidence==='inferred')continue;const [x,z]=xy([f.x,f.y]);let w=f.w*s,d=f.d*s,a=f.rotation*Math.PI/180;if(w>d&&(["bed","exam","operating","scanner","toilet"].includes(f.type)||(f.type==="stair"&&!f.stairLayout))){[w,d]=[d,w];a+=Math.PI/2}const accent=opt.byEvidence?(f.evidence==='symbol'?'#2a8897':'#c2904e'):'#4f95a3',light='#f7f7f2',frame='#99a8b0',dark='#4e626e';
+  const info:PickInfo={kind:circulation?'circulation':'furniture',id:f.id,label:furnitureNames[f.type]??f.type,evidence:f.evidence,furnitureType:f.type,roomId:f.roomId,detail:furnishingDetail(f)};
+  const part=(dx:number,dz:number,width:number,depth:number,h:number,y:number,color:string)=>box(circulation?'circulation':'furniture',color,x+dx*Math.cos(a)-dz*Math.sin(a),y,z+dx*Math.sin(a)+dz*Math.cos(a),Math.min(width,Math.max(0,w-2*Math.abs(dx))),h,Math.min(depth,Math.max(0,d-2*Math.abs(dz))),-a,info);
   const legs=(height:number)=>{for(const xx of [-.38,.38])for(const zz of [-.38,.38])part(w*xx,d*zz,.055,.055,height,height/2,frame)};
   if(['bed','exam','operating'].includes(f.type)){const high=f.type==='bed'?.56:.78;part(0,0,w*.88,d*.92,.13,high-.15,frame);part(0,0,w*.84,d*.89,.19,high,light);part(0,-d*.31,w*.69,d*.19,.085,high+.135,light);part(0,d*.1,w*.85,d*.44,.03,high+.108,accent);if(f.type==='bed'){part(0,-d*.46,w,.07,.46,high+.1,accent);part(0,d*.46,w,.06,.32,high-.03,frame);for(const xx of [-.49,.49])part(w*xx,0,.045,d*.56,.035,high+.18,frame)}legs(high-.19)}
   else if(f.type==='chair'||f.type==='sofa'){part(0,0,w,d*.9,.11,.45,accent);part(0,-d*.42,w,d*.12,.44,.68,accent);legs(.4);if(f.type==='sofa')for(const xx of [-.46,.46])part(w*xx,0,w*.08,d,.2,.53,accent)}
@@ -42,8 +42,25 @@ export function buildPlanScene(model:PlanModel,opt:SceneOptions){
   else if(f.type==='sink'){part(0,0,w,d,.16,.78,light);part(0,0,w*.57,d*.53,.012,.865,'#82a6ad');part(0,-d*.31,.04,.04,.15,.94,frame)}
   else if(f.type==='toilet'){part(0,d*.1,w*.73,d*.67,.37,.215,light);part(0,d*.08,w*.58,d*.49,.018,.41,'#a7bfc4');part(0,-d*.34,w*.83,d*.24,.59,.34,light)}
   else if(f.type==='scanner'){part(0,-d*.18,w,d*.37,1.65,.825,light);part(0,-d*.19,w*.58,d*.38,.6,.96,accent);part(0,d*.15,w*.37,d*.70,.15,.65,light);part(0,d*.20,w*.24,d*.6,.48,.32,frame)}
-  else if(f.type==='stair'){for(let i=0;i<12;i++){const h=.07+i*.065;part(0,-d/2+d*(i+.5)/12,w,d/12,h,h/2,frame)}}
-  else if(f.type==='lift'){part(0,0,w,d,.04,.04,'#91b4be');for(const xx of [-.48,.48])part(w*xx,0,w*.035,d,Math.min(opt.wallHeight,1.2),Math.min(opt.wallHeight,1.2)/2,frame);part(0,-d*.48,w,d*.035,Math.min(opt.wallHeight,1.2),Math.min(opt.wallHeight,1.2)/2,frame)}
+  else if(f.type==='stair'){
+   const rise=f.rise??Math.min(3.2,d*.65),dogleg=f.stairLayout==='dogleg',landing=d*.18,run=d-2*landing,steps=12;
+   part(0,-d/2+landing/2,w,landing,.08,.04,light);
+   const flight=(xx:number,width:number,reverse:boolean,bottom:number,climb:number)=>{for(let i=0;i<steps;i++){const dz=-run/2+run*(i+.5)/steps,h=bottom+climb*(reverse?steps-i:i+1)/steps;part(xx,dz,width,run/steps,.12,h-.06,frame);part(xx,dz-run/steps*.45,width,run/steps*.08,.025,h+.01,accent);for(const side of [-1,1])part(xx+side*width*.45,dz,width*.06,run/steps,.035,h+.83,dark)}for(const j of [0,steps-1]){const dz=-run/2+run*(j+.5)/steps,h=bottom+climb*(reverse?steps-j:j+1)/steps;for(const side of [-1,1])part(xx+side*width*.45,dz,width*.05,run/steps*.35,.82,h+.41,frame)}};
+   if(dogleg){flight(-w*.255,w*.46,false,0,rise/2);part(0,d/2-landing/2,w,landing,.15,rise/2-.075,light);flight(w*.255,w*.46,true,rise/2,rise/2);part(w*.255,-d/2+landing/2,w*.46,landing,.15,rise-.075,light);
+   }else{flight(0,w*.9,false,0,rise);part(0,d/2-landing/2,w,landing,.15,rise-.075,light)}
+  }
+  else if(f.type==='escalator'){
+   const rise=f.rise??Math.min(3.2,d*.4),run=d*.66,landing=d*.17,steps=28;
+   part(0,-d/2+landing/2,w,landing,.12,.06,frame);part(0,d/2-landing/2,w,landing,.12,rise+.06,frame);
+   for(let i=0;i<steps;i++){const dz=-run/2+run*(i+.5)/steps,h=rise*(i+.5)/steps;part(0,dz,w*.64,run/steps,.1,h+.07,frame);part(0,dz-run/steps*.42,w*.64,run/steps*.1,.015,h+.127,'#ead578');for(const side of [-1,1]){part(side*w*.41,dz,w*.12,run/steps,.72,h+.48,accent);part(side*w*.41,dz,w*.14,run/steps,.055,h+.87,dark)}}
+   for(const [dz,h] of [[-d/2+landing/2,0],[d/2-landing/2,rise]])for(const side of [-1,1]){part(side*w*.41,dz,w*.12,landing,.72,h+.48,accent);part(side*w*.41,dz,w*.14,landing,.055,h+.87,dark)}
+  }
+  else if(f.type==='lift'){
+   const h=Math.max(.45,Math.min(opt.wallHeight,2.5)),doorHeight=Math.min(h,2.1);
+   part(0,0,w,d,.055,.035,accent);for(const xx of [-.475,.475])part(w*xx,0,w*.05,d,h,h/2,frame);part(0,-d*.475,w,d*.05,h,h/2,frame);
+   for(const side of [-1,1]){part(side*w*.415,d*.455,w*.12,d*.07,h,h/2,frame);part(side*w*.155,d*.40,w*.30,d*.045,doorHeight*.84,doorHeight*.42+.04,light)}
+   part(0,d*.403,w*.018,d*.05,doorHeight*.78,doorHeight*.41+.04,dark);part(0,d*.45,w*.74,d*.09,.07,doorHeight+.035,accent);part(w*.36,d*.495,w*.065,d*.01,.14,Math.min(.95,h*.68),'#e6c369');
+  }
  }
  const unit=new THREE.BoxGeometry(1,1,1);geometries.push(unit);
  for(const {parts,color,layer} of buckets.values()){const mesh=new THREE.InstancedMesh(unit,material(color),parts.length);mesh.name=layer+' '+color;for(let i=0;i<parts.length;i++)mesh.setMatrixAt(i,parts[i].matrix);mesh.userData.picks=parts.map(p=>p.info);mesh.instanceMatrix.needsUpdate=true;mesh.castShadow=layer!=='openings';mesh.receiveShadow=true;mesh.computeBoundingSphere();group(layer).add(mesh)}

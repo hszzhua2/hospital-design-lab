@@ -9,6 +9,7 @@
 ## 功能
 
 - **15张独立平面模型**：独墅湖一期10张、南京鼓楼南扩4张、香港中大医院历史病区1张。标准图保留对应楼层范围。
+- **交通设施**：逐图复核扶梯、电梯和楼梯，修正错位与误分类；支持独立图层、二维符号、三维构造与编号定位。各项目复核记录位于 `research/*-circulation-review.md`。
 - **三维与家具**：墙体剖切、房间分区、家具和设备表达、构件依据点选；支持单层GLB、JSON和全部模型包。
 - **证据与推定分离**：保留源图出处、历史阶段、比例假设和 `traced` / `symbol` / `inferred` 标记。
 - **跨层实验**：3个项目 × 3种需求倍率 × 12组配对种子 × 2种策略，共216次默认运行，包含可复算结果。
@@ -60,6 +61,7 @@ Fork 后在仓库 **Settings → Pages → Source** 选择 **GitHub Actions**，
 pnpm analyze:transport
 pnpm models:build
 pnpm models:check
+pnpm models:check-circulation
 ```
 
 `models:build` 根据 JSON 生成15份GLB，检查对象编号、楼层对应、有限几何、家具在房间和楼板内、导出构件在记录的家具足迹内，以及门窗洞口样例。原始图像是可选本地资产；是否存在会在审计中单独记录。

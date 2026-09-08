@@ -28,6 +28,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Type check
         run: pnpm typecheck
+      - name: Check circulation models
+        run: pnpm models:check-circulation
       - name: Build static site
         run: pnpm build:pages
       - name: Verify deployment files

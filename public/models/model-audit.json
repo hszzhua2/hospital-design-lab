@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T05:45:04.252Z",
+  "generatedAt": "2026-09-08T07:36:02.640Z",
   "scope": "Approximate image-derived models, with inferred furniture explicitly tagged. No as-built certification or real procurement quantities.",
   "projects": [
     "dushu",
@@ -8,10 +8,10 @@
   ],
   "modelCount": 15,
   "totals": {
-    "rooms": 1733,
-    "walls": 8420,
-    "furniture": 4374,
-    "meshParts": 42107
+    "rooms": 1774,
+    "walls": 8736,
+    "furniture": 4369,
+    "meshParts": 64840
   },
   "oracle": {
     "doorOpening": true,
@@ -32,16 +32,19 @@
       "glb": "/models/dushu-B1.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 500,
-        "rooms": 106,
-        "doors": 78,
+        "walls": 522,
+        "rooms": 108,
+        "doors": 92,
         "windows": 0,
         "furniture": 18,
         "inferred": 18,
-        "symbols": 0
+        "symbols": 0,
+        "stairs": 14,
+        "lifts": 15,
+        "escalators": 2
       },
-      "geometryInstances": 916,
-      "bytes": 550980,
+      "geometryInstances": 2759,
+      "bytes": 1860688,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -62,16 +65,19 @@
       "glb": "/models/dushu-F1.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 499,
-        "rooms": 109,
-        "doors": 84,
+        "walls": 526,
+        "rooms": 112,
+        "doors": 99,
         "windows": 0,
         "furniture": 242,
         "inferred": 115,
-        "symbols": 127
+        "symbols": 127,
+        "stairs": 13,
+        "lifts": 15,
+        "escalators": 4
       },
-      "geometryInstances": 2477,
-      "bytes": 1180116,
+      "geometryInstances": 4581,
+      "bytes": 2621900,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -92,16 +98,19 @@
       "glb": "/models/dushu-F2.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 602,
-        "rooms": 135,
-        "doors": 110,
+        "walls": 619,
+        "rooms": 136,
+        "doors": 123,
         "windows": 0,
-        "furniture": 340,
-        "inferred": 248,
-        "symbols": 92
+        "furniture": 338,
+        "inferred": 246,
+        "symbols": 92,
+        "stairs": 13,
+        "lifts": 15,
+        "escalators": 2
       },
-      "geometryInstances": 3216,
-      "bytes": 1535016,
+      "geometryInstances": 4940,
+      "bytes": 2685564,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -122,16 +131,19 @@
       "glb": "/models/dushu-F3.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 582,
-        "rooms": 127,
-        "doors": 102,
+        "walls": 609,
+        "rooms": 130,
+        "doors": 117,
         "windows": 0,
         "furniture": 238,
         "inferred": 168,
-        "symbols": 70
+        "symbols": 70,
+        "stairs": 13,
+        "lifts": 15,
+        "escalators": 2
       },
-      "geometryInstances": 2548,
-      "bytes": 1255004,
+      "geometryInstances": 4298,
+      "bytes": 2443136,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -152,16 +164,19 @@
       "glb": "/models/dushu-F4.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 471,
-        "rooms": 98,
-        "doors": 73,
+        "walls": 498,
+        "rooms": 101,
+        "doors": 88,
         "windows": 0,
         "furniture": 92,
         "inferred": 40,
-        "symbols": 52
+        "symbols": 52,
+        "stairs": 13,
+        "lifts": 15,
+        "escalators": 0
       },
-      "geometryInstances": 1523,
-      "bytes": 793956,
+      "geometryInstances": 2917,
+      "bytes": 1781508,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -182,16 +197,19 @@
       "glb": "/models/dushu-F5.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 334,
-        "rooms": 71,
-        "doors": 48,
+        "walls": 361,
+        "rooms": 74,
+        "doors": 63,
         "windows": 0,
         "furniture": 46,
         "inferred": 34,
-        "symbols": 12
+        "symbols": 12,
+        "stairs": 10,
+        "lifts": 15,
+        "escalators": 0
       },
-      "geometryInstances": 865,
-      "bytes": 478920,
+      "geometryInstances": 1974,
+      "bytes": 1267144,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -212,16 +230,19 @@
       "glb": "/models/dushu-F6.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 262,
-        "rooms": 58,
-        "doors": 40,
+        "walls": 305,
+        "rooms": 64,
+        "doors": 59,
         "windows": 0,
         "furniture": 49,
         "inferred": 0,
-        "symbols": 49
+        "symbols": 49,
+        "stairs": 6,
+        "lifts": 18,
+        "escalators": 0
       },
-      "geometryInstances": 891,
-      "bytes": 461840,
+      "geometryInstances": 1672,
+      "bytes": 1009964,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -242,16 +263,19 @@
       "glb": "/models/dushu-F7.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 254,
-        "rooms": 56,
-        "doors": 38,
+        "walls": 296,
+        "rooms": 62,
+        "doors": 56,
         "windows": 0,
         "furniture": 58,
         "inferred": 0,
-        "symbols": 58
+        "symbols": 58,
+        "stairs": 6,
+        "lifts": 18,
+        "escalators": 0
       },
-      "geometryInstances": 1003,
-      "bytes": 499296,
+      "geometryInstances": 1783,
+      "bytes": 1045724,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -275,16 +299,19 @@
       "glb": "/models/dushu-F8-11.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 258,
-        "rooms": 57,
-        "doors": 39,
+        "walls": 300,
+        "rooms": 63,
+        "doors": 57,
         "windows": 0,
         "furniture": 79,
         "inferred": 0,
-        "symbols": 79
+        "symbols": 79,
+        "stairs": 6,
+        "lifts": 18,
+        "escalators": 0
       },
-      "geometryInstances": 1260,
-      "bytes": 615608,
+      "geometryInstances": 2040,
+      "bytes": 1164716,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -305,16 +332,19 @@
       "glb": "/models/dushu-F12.glb",
       "scaleStatus": "assumed",
       "counts": {
-        "walls": 254,
-        "rooms": 56,
-        "doors": 38,
+        "walls": 296,
+        "rooms": 62,
+        "doors": 56,
         "windows": 0,
         "furniture": 51,
         "inferred": 0,
-        "symbols": 51
+        "symbols": 51,
+        "stairs": 6,
+        "lifts": 18,
+        "escalators": 0
       },
-      "geometryInstances": 919,
-      "bytes": 468600,
+      "geometryInstances": 1699,
+      "bytes": 1018316,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -341,10 +371,13 @@
         "windows": 10,
         "furniture": 820,
         "inferred": 633,
-        "symbols": 187
+        "symbols": 187,
+        "stairs": 18,
+        "lifts": 36,
+        "escalators": 6
       },
-      "geometryInstances": 5820,
-      "bytes": 2634176,
+      "geometryInstances": 8833,
+      "bytes": 4737756,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -366,15 +399,18 @@
       "scaleStatus": "scale-bar",
       "counts": {
         "walls": 967,
-        "rooms": 186,
+        "rooms": 187,
         "doors": 185,
         "windows": 93,
-        "furniture": 676,
-        "inferred": 17,
-        "symbols": 659
+        "furniture": 674,
+        "inferred": 15,
+        "symbols": 659,
+        "stairs": 17,
+        "lifts": 36,
+        "escalators": 8
       },
-      "geometryInstances": 5773,
-      "bytes": 2748604,
+      "geometryInstances": 9063,
+      "bytes": 5175152,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -396,15 +432,18 @@
       "scaleStatus": "scale-bar",
       "counts": {
         "walls": 1034,
-        "rooms": 192,
+        "rooms": 193,
         "doors": 192,
         "windows": 89,
         "furniture": 717,
         "inferred": 15,
-        "symbols": 702
+        "symbols": 702,
+        "stairs": 16,
+        "lifts": 36,
+        "escalators": 2
       },
-      "geometryInstances": 6075,
-      "bytes": 2882512,
+      "geometryInstances": 8219,
+      "bytes": 4447448,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -438,10 +477,13 @@
         "windows": 118,
         "furniture": 669,
         "inferred": 0,
-        "symbols": 669
+        "symbols": 669,
+        "stairs": 8,
+        "lifts": 18,
+        "escalators": 0
       },
-      "geometryInstances": 6351,
-      "bytes": 3139648,
+      "geometryInstances": 7237,
+      "bytes": 3758656,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,
@@ -466,12 +508,15 @@
         "rooms": 94,
         "doors": 89,
         "windows": 43,
-        "furniture": 279,
-        "inferred": 279,
-        "symbols": 0
+        "furniture": 278,
+        "inferred": 278,
+        "symbols": 0,
+        "stairs": 7,
+        "lifts": 9,
+        "escalators": 0
       },
-      "geometryInstances": 2470,
-      "bytes": 1211992,
+      "geometryInstances": 2825,
+      "bytes": 1461096,
       "checks": {
         "sourceAndFloorCoverage": true,
         "sourceImageIncluded": true,

@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit",
     "models:build": "node --experimental-strip-types scripts/build-plan-models.ts",
     "models:check": "node --experimental-strip-types scripts/check-room-holes.ts",
+    "models:check-circulation": "node --experimental-strip-types scripts/check-circulation.ts",
     "analyze:transport": "node --experimental-strip-types scripts/analyze-multifloor.ts"
   },
   "dependencies": {
